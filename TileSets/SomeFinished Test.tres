@@ -1,0 +1,88 @@
+[gd_resource type="TileSet" load_steps=13 format=3 uid="uid://da3fpmg2684ih"]
+
+[ext_resource type="Shader" path="res://TileSets/Among Us Shader.gdshader" id="1_0dx3t"]
+[ext_resource type="Texture2D" uid="uid://bk114m1m7lhxn" path="res://TileSets/Images/Basic Tile Colorable.png" id="1_vkidp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b2bfd"]
+shader = ExtResource("1_0dx3t")
+shader_parameter/r = Color(0.87451, 0.592157, 0.14902, 1)
+shader_parameter/g = Color(1, 1, 1, 1)
+shader_parameter/b = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wt3v0"]
+shader = ExtResource("1_0dx3t")
+shader_parameter/r = Color(0.0941176, 0.772549, 0.803922, 1)
+shader_parameter/g = Color(1, 1, 1, 1)
+shader_parameter/b = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q11uf"]
+shader = ExtResource("1_0dx3t")
+shader_parameter/r = Color(0.827451, 0, 0, 1)
+shader_parameter/g = Color(1, 1, 1, 1)
+shader_parameter/b = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6ia0t"]
+shader = ExtResource("1_0dx3t")
+shader_parameter/r = Color(0.882353, 0, 0.537255, 1)
+shader_parameter/g = Color(1, 1, 1, 1)
+shader_parameter/b = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ad5p7"]
+shader = ExtResource("1_0dx3t")
+shader_parameter/r = Color(0.87451, 0.592157, 0.14902, 1)
+shader_parameter/g = Color(1, 1, 1, 1)
+shader_parameter/b = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gersi"]
+shader = ExtResource("1_0dx3t")
+shader_parameter/r = Color(0.87451, 0.592157, 0.14902, 1)
+shader_parameter/g = Color(1, 1, 1, 1)
+shader_parameter/b = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4hdjk"]
+shader = ExtResource("1_0dx3t")
+shader_parameter/r = Color(0.87451, 0.592157, 0.14902, 1)
+shader_parameter/g = Color(1, 1, 1, 1)
+shader_parameter/b = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yuakh"]
+shader = ExtResource("1_0dx3t")
+shader_parameter/r = Color(0.87451, 0.592157, 0.14902, 1)
+shader_parameter/g = Color(1, 1, 1, 1)
+shader_parameter/b = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lnpfv"]
+shader = ExtResource("1_0dx3t")
+shader_parameter/r = Color(0.87451, 0.592157, 0.14902, 1)
+shader_parameter/g = Color(1, 1, 1, 1)
+shader_parameter/b = Color(1, 1, 1, 1)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r2hn3"]
+resource_name = "<null>"
+texture = ExtResource("1_vkidp")
+texture_region_size = Vector2i(128, 128)
+0:0/next_alternative_id = 4
+0:0/0 = 0
+0:0/0/material = SubResource("ShaderMaterial_b2bfd")
+0:0/1 = 1
+0:0/1/material = SubResource("ShaderMaterial_wt3v0")
+0:0/2 = 2
+0:0/2/material = SubResource("ShaderMaterial_q11uf")
+0:0/3 = 3
+0:0/3/material = SubResource("ShaderMaterial_6ia0t")
+0:2/0 = 0
+0:2/0/material = SubResource("ShaderMaterial_gersi")
+0:3/0 = 0
+0:3/0/material = SubResource("ShaderMaterial_4hdjk")
+0:4/0 = 0
+0:4/0/material = SubResource("ShaderMaterial_yuakh")
+0:5/0 = 0
+0:5/0/material = SubResource("ShaderMaterial_lnpfv")
+0:1/0 = 0
+0:1/0/material = SubResource("ShaderMaterial_ad5p7")
+
+[resource]
+tile_size = Vector2i(128, 128)
+custom_data_layer_0/name = "CatType"
+custom_data_layer_0/type = 2
+sources/0 = SubResource("TileSetAtlasSource_r2hn3")

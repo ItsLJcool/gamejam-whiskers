@@ -4,11 +4,19 @@ extends Node2D
 class_name Player
 
 enum Type {
-	Yellow,
-	Cyan,
-	Red,
-	Pink, #Pinkj... lol
+	Yellow = 0,
+	Cyan = 1,
+	Red = 2,
+	Pink = 3, #Pinkj... lol
 }
+
+static var COLOR_TYPES:Dictionary = {
+	"Yellow": Color(0.875, 0.592, 0.149), #df9726
+	"Cyan": Color(0.094, 0.773, 0.804), #18c5cd
+	"Red": Color(0.827, 0, 0), #d30000
+	"Pink": Color(0.882, 0, 0.537), #e10089
+}
+
 func type_to_string(cat:Type = CAT_TYPE):
 	return Type.keys()[cat].capitalize()
 
@@ -24,7 +32,7 @@ var cat_image_file:String = "res://Assets/CatMax/%s_Cat.png"
 func init_cat():
 	cat_sprite.texture = load(cat_image_file % type_to_string())
 
-@export var Wall:TileMapLayer;
+@export var Wall:TileMapLayer
 
 static var CURRENT_CAT:Type = Type.Yellow
 
@@ -38,9 +46,10 @@ static var CURRENT_CAT:Type = Type.Yellow
 static var TILE_SIZE = 128;
 var move_speed = 15
 
+var GRID_POSITION:Vector2 = Vector2.ZERO;
+
 var target_position = Vector2()
 func _ready():
-	Wall.get_cell_tile_data(Vector2(0,0)).modulate.b = 0.5
 	init_cat()
 	target_position = position
 	
@@ -75,3 +84,8 @@ func _process(delta):
 	
 	# Move smoothly towards the target position
 	position = lerp(position, target_position, delta*move_speed)
+	GRID_POSITION = Wall.local_to_map(Wall.to_local(target_position))
+	var killMe = Wall.get_cell_tile_data(GRID_POSITION)
+	if killMe:
+		print(killMe.get_custom_data("CatType"));
+	
