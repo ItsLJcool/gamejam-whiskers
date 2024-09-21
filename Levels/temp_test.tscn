@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://crplkh8tm378t"]
+
+[ext_resource type="TileSet" uid="uid://d3qlpm8y72lyr" path="res://TileSets/TestTileSet.tres" id="1_jvudv"]
+[ext_resource type="PackedScene" uid="uid://pv8m5sf23dfq" path="res://Assets/PlayerCat.tscn" id="2_cacoq"]
+[ext_resource type="PackedScene" uid="uid://lr0s2mjs6siy" path="res://Tools/CameraLevel.tscn" id="3_32cx7"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="WallTest" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+tile_set = ExtResource("1_jvudv")
+
+[node name="PlayerCat2" parent="." node_paths=PackedStringArray("Wall") instance=ExtResource("2_cacoq")]
+position = Vector2(-128, -128)
+CAT_TYPE = 2
+Wall = NodePath("../WallTest")
+
+[node name="PlayerCat" parent="." node_paths=PackedStringArray("Wall") instance=ExtResource("2_cacoq")]
+position = Vector2(-256, -128)
+Wall = NodePath("../WallTest")
+
+[node name="CameraLevel" parent="." instance=ExtResource("3_32cx7")]
+position = Vector2(0, -128)
+
+[node name="PlayerCat3" parent="." node_paths=PackedStringArray("Wall") instance=ExtResource("2_cacoq")]
+position = Vector2(-512, -128)
+Wall = NodePath("../WallTest")

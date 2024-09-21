@@ -1,6 +1,8 @@
 @tool
 extends Node2D
+
 class_name Player
+
 enum Type {
 	Yellow,
 	Cyan,
@@ -17,7 +19,14 @@ var cat_image_file:String = "res://Assets/CatMax/%s_Cat.png"
 	set(value):
 		CAT_TYPE = value
 		if cat_sprite:
-			cat_sprite.texture = load(cat_image_file % type_to_string())
+			init_cat();
+		
+func init_cat():
+	cat_sprite.texture = load(cat_image_file % type_to_string())
+
+@export var Wall:TileMapLayer;
+
+static var CURRENT_CAT:Type = Type.Yellow
 
 @export var tile_size = 128:
 	set(value):
@@ -31,6 +40,8 @@ var move_speed = 15
 
 var target_position = Vector2()
 func _ready():
+	Wall.get_cell_tile_data(Vector2(0,0)).modulate.b = 0.5
+	init_cat()
 	target_position = position
 	
 var FLIPPED = false
@@ -44,6 +55,8 @@ func _process(delta):
 		var new_x = round(position.x / tile_size) * tile_size
 		var new_y = round(position.y / tile_size) * tile_size
 		position = lerp(position, Vector2(new_x, new_y), delta*move_speed)
+		return
+	if CAT_TYPE != CURRENT_CAT:
 		return
 	var direction = Vector2()
 	if Input.is_action_just_pressed("Player_Right"):
