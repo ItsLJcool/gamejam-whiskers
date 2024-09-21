@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://pv8m5sf23dfq"]
+
+[ext_resource type="Script" path="res://PlayerCat.gd" id="1_a15mm"]
+[ext_resource type="Texture2D" uid="uid://dm2he31p01pq2" path="res://Assets/CatMax/Yellow_Cat.png" id="2_g7t6e"]
+
+[node name="PlayerCat" type="Node2D"]
+script = ExtResource("1_a15mm")
+
+[node name="CatSprite" type="Sprite2D" parent="."]
+position = Vector2(64, 64)
+texture = ExtResource("2_g7t6e")
