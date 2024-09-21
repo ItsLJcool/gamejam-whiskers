@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://co83codtadvq4"]
+
+[ext_resource type="Shader" path="res://TileSets/Among Us Shader.gdshader" id="1_ekgiv"]
+[ext_resource type="Texture2D" uid="uid://dmooxngx3q36x" path="res://TileSets/Images/Yarn.png" id="2_fn1cj"]
+[ext_resource type="Script" path="res://TileSets/YarnBall.gd" id="3_uuxty"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wkp2a"]
+shader = ExtResource("1_ekgiv")
+shader_parameter/r = Color(0.875, 0.592, 0.149, 1)
+shader_parameter/g = Color(1, 1, 1, 1)
+shader_parameter/b = Color(1, 1, 1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n1oqt"]
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ytcu"]
+size = Vector2(124, 124)
+
+[node name="Yarn" type="Sprite2D"]
+material = SubResource("ShaderMaterial_wkp2a")
+texture = ExtResource("2_fn1cj")
+offset = Vector2(64, 64)
+script = ExtResource("3_uuxty")
+
+[node name="YarnArea" type="Area2D" parent="." groups=["Yarn"]]
+
+[node name="Yarn GD COLON!!!!" type="CollisionShape2D" parent="YarnArea"]
+position = Vector2(64, 64)
+shape = SubResource("RectangleShape2D_n1oqt")
+debug_color = Color(8.66354e-07, 0.614871, 0.604599, 0.42)
+
+[node name="StopPlayer" type="Area2D" parent="." groups=["StopPlayer"]]
+
+[node name="StopPlayerMovement" type="CollisionShape2D" parent="StopPlayer"]
+position = Vector2(64, 64)
+shape = SubResource("RectangleShape2D_8ytcu")
+disabled = true
+debug_color = Color(0.736791, 0.443148, 0.420684, 0.42)
+
+[node name="Test" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.05
+one_shot = true
+
+[connection signal="area_entered" from="YarnArea" to="." method="_on_yarn_area_area_entered"]
+[connection signal="area_exited" from="StopPlayer" to="." method="_on_stop_player_area_exited"]
+[connection signal="timeout" from="Test" to="." method="_on_test_timeout"]

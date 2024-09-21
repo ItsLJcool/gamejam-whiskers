@@ -15,6 +15,6 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	var new_x = round(position.x / Player.TILE_SIZE) * Player.TILE_SIZE
-	var new_y = round(position.y / Player.TILE_SIZE) * Player.TILE_SIZE
+	var new_y = round(position.y / Player.TILE_SIZE) * Player.TILE_SIZE + (Player.TILE_SIZE * 0.35)
 	position = lerp(position, Vector2(new_x, new_y), delta*5)
 	pass

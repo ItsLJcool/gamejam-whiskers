@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://lr0s2mjs6siy"]
+
+[ext_resource type="Script" path="res://Tools/CameraLevel.gd" id="1_gl2ec"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4dw8y"]
+resource_local_to_scene = true
+size = Vector2(2712, 978)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_gl2ec")
+
+[node name="CameraLevel" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+
+[node name="Area2D" type="Area2D" parent="." groups=["CameraViewFrame"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-4, -0.5)
+shape = SubResource("RectangleShape2D_4dw8y")

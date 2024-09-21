@@ -3,6 +3,8 @@
 [ext_resource type="Script" path="res://Tools/CameraLevel.gd" id="1_gl2ec"]
 
 [node name="Node2D" type="Node2D"]
+position = Vector2(0, 44.8)
 script = ExtResource("1_gl2ec")
 
 [node name="CameraLevel" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
