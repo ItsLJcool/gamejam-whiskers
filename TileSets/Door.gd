@@ -62,6 +62,7 @@ var GRID_POSITION:Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	
+	all = []
 	all = get_all(get_tree().root)
 	
 	if ButtonReference:
@@ -86,12 +87,9 @@ func _process(delta: float) -> void:
 	position = lerp(position, target_position, delta * move_speed)
 
 func _on_player_moved(dir):
-	for cat in Player.all:
-		if cat.GRID_POSITION == GRID_POSITION and cat.CAT_TYPE == ColorType and door_state != DoorType.Opened:
-			cat.move(-dir, [
-			Player.MoveProperties.ALLOW_SLIDING,Player.MoveProperties.CHECK_TILE_MAP
-			])
 	for yarn in Yarn.all:
+		if not is_instance_valid(yarn):
+			continue
 		if yarn.GRID_POSITION == GRID_POSITION and yarn.ColorType == ColorType and door_state != DoorType.Opened:
 			yarn.move(-dir, [
 			Player.MoveProperties.ALLOW_SLIDING,Player.MoveProperties.CHECK_TILE_MAP

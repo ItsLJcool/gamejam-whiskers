@@ -81,3 +81,15 @@ position = Vector2(128, -256)
 [node name="Yarn4" parent="." instance=ExtResource("4_hwge0")]
 material = SubResource("ShaderMaterial_hxuc8")
 position = Vector2(640, -640)
+
+[node name="PlayerCat2" parent="." node_paths=PackedStringArray("_wall") instance=ExtResource("2_cacoq")]
+position = Vector2(256, -128)
+_wall = NodePath("../WallTest")
+
+[node name="PlayerCat3" parent="." instance=ExtResource("2_cacoq")]
+position = Vector2(-512, -384)
+CAT_TYPE = 1
+
+[node name="PlayerCat4" parent="." instance=ExtResource("2_cacoq")]
+position = Vector2(768, -896)
+CAT_TYPE = 2

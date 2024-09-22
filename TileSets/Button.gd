@@ -43,25 +43,18 @@ var GRID_POSITION:Vector2 = Vector2.ZERO
 @onready var button:Sprite2D = $Sprite2D
 
 func _ready() -> void:
+	
+	all = []
 	all = get_all(get_tree().root)
 	init_button()
 	var root = get_tree().root
-	var player = find_player_cat(root)
+	var player = Player.find_player_cat(root)
 	if player:
 		player.connect("player_moved", _on_player_moved)
 		player.connect("force_complete_movements", _force_complete_movements)
 	
 	target_position = position
 	prev_target_position = target_position
-
-func find_player_cat(node):
-	if node is Player:
-		return node
-	for child in node.get_children():
-		var result = find_player_cat(child)
-		if result:
-			return result
-	return null
 
 var move_speed:int = 15;
 func _process(delta: float) -> void:
@@ -74,9 +67,9 @@ func _process(delta: float) -> void:
 	position = lerp(position, target_position, delta * move_speed)
 
 func _on_player_moved(dir):
-	print("_on_player_moved BUTTON: ", GRID_POSITION)
-	print("pushed: ", pushed)
 	for cat in Player.all:
+		if not is_instance_valid(cat):
+			continue
 		if cat.GRID_POSITION == GRID_POSITION and cat.CAT_TYPE == ColorType:
 			pushed = true
 			return
@@ -84,6 +77,8 @@ func _on_player_moved(dir):
 			pushed = false
 	
 	for yarn in Yarn.all:
+		if not is_instance_valid(yarn):
+			continue
 		if yarn.GRID_POSITION == GRID_POSITION and yarn.ColorType == ColorType:
 			pushed = true
 			return

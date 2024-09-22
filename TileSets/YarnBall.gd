@@ -44,6 +44,7 @@ var GRID_POSITION:Vector2 = Vector2.ZERO
 
 var is_moving:bool = false
 func _ready():
+	all = []
 	all = get_all(get_tree().root)
 	if not Engine.is_editor_hint():
 		var root = get_tree().root
@@ -85,10 +86,14 @@ func move(direction, properties:Array = [
 
 func _on_player_moved(dir):
 	for cat in Player.all:
+		if not is_instance_valid(cat):
+			continue
 		if cat.GRID_POSITION == GRID_POSITION and cat.CAT_TYPE == ColorType:
 			pass
 			#move(cat._last_direction)
 	for yarn in Yarn.all:
+		if not is_instance_valid(yarn):
+			continue
 		if yarn == self:
 			continue
 		if yarn.GRID_POSITION == GRID_POSITION and yarn.ColorType == ColorType:

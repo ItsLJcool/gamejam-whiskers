@@ -34,9 +34,10 @@ position = Vector2(512, 0)
 _wall = NodePath("../WallTest")
 _topLayer = NodePath("../TopLayer")
 _last_direction = Vector2(-1, 0)
+ON_SCENE_START_MOVE = true
 
 [node name="DefineLevelTransition" parent="." instance=ExtResource("4_5mp21")]
-position = Vector2(-1280, 128)
+position = Vector2(-1408, 128)
 NextLevel = "res://Levels/Intro Levels/Level1.tscn"
 
 [node name="Door" parent="." node_paths=PackedStringArray("ButtonReference") instance=ExtResource("5_bhy2w")]

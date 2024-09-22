@@ -3,6 +3,13 @@ extends Node2D
 
 class_name Player
 
+enum Type {
+	Yellow = 0,
+	Cyan = 1,
+	Red = 2,
+	Pink = 3, #Pinkj... lol
+}
+
 static func find_player_cat(node):
 	if node is Player:
 		return node
@@ -22,13 +29,6 @@ func get_all(node):
 	return data;
 
 static var all:Array = []
-
-enum Type {
-	Yellow = 0,
-	Cyan = 1,
-	Red = 2,
-	Pink = 3, #Pinkj... lol
-}
 
 signal player_moved(direction:Vector2)
 signal force_complete_movements()
@@ -104,7 +104,7 @@ var CAN_INPUT:bool = true
 var is_moving:bool = false
 
 func _ready():
-	
+	all = []
 	all = get_all(get_tree().root)
 	
 	init_cat()
@@ -143,6 +143,7 @@ func _process(delta):
 		get_tree().reload_current_scene()
 	
 	if CAT_TYPE != CURRENT_CAT:
+		position = lerp(position, target_position, delta*mult_speed)
 		return
 		
 	if Input.is_action_just_pressed("Player_Right") or Input.is_action_just_pressed("Player_Left") or Input.is_action_just_pressed("Player_Down") or Input.is_action_just_pressed("Player_Up"):
@@ -171,7 +172,7 @@ func get_direction_from_input() -> Vector2:
 enum MoveProperties {
 	ALLOW_SLIDING,
 	CHECK_TILE_MAP,
-	FLIP
+	FLIP,
 }
  
 func move(direction, properties:Array = [
@@ -191,13 +192,34 @@ func move(direction, properties:Array = [
 		tile_map(Wall, properties)
 
 func check_overlaps():
+	for cat in Player.all:
+		if not is_instance_valid(cat) or cat == self:
+			continue
+		if cat.GRID_POSITION == GRID_POSITION:
+			move(-_last_direction)
 	for yarn in Yarn.all:
+		if not is_instance_valid(yarn):
+			continue
 		if yarn.GRID_POSITION == GRID_POSITION and yarn.ColorType == CAT_TYPE:
 			$IceSlideTimer.start()
 			yarn.move(_last_direction)
 			if !yarn.CAN_MOVE:
 				move(-_last_direction, [])
-			pass
+	
+	for booster in Booster.all:
+		if not is_instance_valid(booster):
+			continue
+		if booster.GRID_POSITION == GRID_POSITION and booster.ColorType == CAT_TYPE:
+			print("MOVE PUSSY")
+			move(booster.dir_to_vector()*2)
+			
+	for door in Doors.all:
+		if not is_instance_valid(door):
+			continue
+		if door.GRID_POSITION == GRID_POSITION and door.ColorType == CAT_TYPE and door.door_state != Doors.DoorType.Opened:
+			move(-_last_direction, [
+			Player.MoveProperties.ALLOW_SLIDING,Player.MoveProperties.CHECK_TILE_MAP
+			])
 	pass
 
 var CAN_MOVE:bool = true;
