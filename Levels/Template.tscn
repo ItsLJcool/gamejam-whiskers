@@ -1,8 +1,12 @@
-[gd_scene load_steps=4 format=4 uid="uid://2rmhn4kk82va"]
+[gd_scene load_steps=8 format=4 uid="uid://2rmhn4kk82va"]
 
 [ext_resource type="TileSet" uid="uid://da3fpmg2684ih" path="res://TileSets/SomeFinished Test.tres" id="1_muoxe"]
 [ext_resource type="PackedScene" uid="uid://pv8m5sf23dfq" path="res://Assets/PlayerCat.tscn" id="1_sh655"]
 [ext_resource type="PackedScene" uid="uid://lr0s2mjs6siy" path="res://Tools/CameraLevel.tscn" id="3_1ea74"]
+[ext_resource type="PackedScene" uid="uid://bogy3if46mcdu" path="res://TileSets/Door.tscn" id="4_ogjem"]
+[ext_resource type="PackedScene" uid="uid://dmkyhfgsx184s" path="res://TileSets/Button.tscn" id="5_g8hwb"]
+[ext_resource type="Texture2D" uid="uid://8jakebe83mkp" path="res://TileSets/Images/Door Locked.png" id="5_x6nu8"]
+[ext_resource type="PackedScene" uid="uid://ca0suwyjmpl3y" path="res://Tools/DefineLevelTransition.tscn" id="7_8tpu8"]
 
 [node name="TempTest2" type="Node2D"]
 
@@ -14,8 +18,22 @@ tile_set = ExtResource("1_muoxe")
 tile_set = ExtResource("1_muoxe")
 
 [node name="Camera" parent="." instance=ExtResource("3_1ea74")]
+position = Vector2(-128, 172.8)
+Zoom = 0.75
 
 [node name="PlayerCat" parent="." node_paths=PackedStringArray("_wall", "_topLayer") instance=ExtResource("1_sh655")]
-position = Vector2(-128, -128)
+position = Vector2(0, -128)
 _wall = NodePath("../Wall")
 _topLayer = NodePath("../TopLayer")
+
+[node name="Door" parent="." node_paths=PackedStringArray("ButtonReference") instance=ExtResource("4_ogjem")]
+position = Vector2(-128, 0)
+texture = ExtResource("5_x6nu8")
+door_state = 1
+ButtonReference = NodePath("../Button")
+
+[node name="Button" parent="." instance=ExtResource("5_g8hwb")]
+position = Vector2(-128, -128)
+
+[node name="DefineLevelTransition" parent="." instance=ExtResource("7_8tpu8")]
+position = Vector2(-896, 4.15703e-18)

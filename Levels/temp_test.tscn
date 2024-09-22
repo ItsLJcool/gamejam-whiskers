@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://crplkh8tm378t"]
+[gd_scene load_steps=13 format=4 uid="uid://crplkh8tm378t"]
 
 [ext_resource type="TileSet" uid="uid://da3fpmg2684ih" path="res://TileSets/SomeFinished Test.tres" id="1_dwqv2"]
 [ext_resource type="PackedScene" uid="uid://pv8m5sf23dfq" path="res://Assets/PlayerCat.tscn" id="2_cacoq"]
@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://ca0suwyjmpl3y" path="res://Tools/DefineLevelTransition.tscn" id="6_oqdu5"]
 [ext_resource type="PackedScene" uid="uid://dmkyhfgsx184s" path="res://TileSets/Button.tscn" id="7_lxm0u"]
 [ext_resource type="PackedScene" uid="uid://bogy3if46mcdu" path="res://TileSets/Door.tscn" id="8_cfvpj"]
-[ext_resource type="Texture2D" uid="uid://b6s1qxntdymx8" path="res://TileSets/Images/Open_door1.png" id="9_vpb5c"]
 [ext_resource type="PackedScene" uid="uid://b5fbphxukm8ac" path="res://TileSets/Booster.tscn" id="10_51fp8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_e1ien"]
@@ -21,7 +20,7 @@ shader_parameter/b = Color(1, 1, 1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_exyvl"]
 resource_local_to_scene = true
 shader = ExtResource("5_sar7g")
-shader_parameter/r = Color(0.875, 0.592, 0.149, 1)
+shader_parameter/r = Color(0.827, 0, 0, 1)
 shader_parameter/g = Color(1, 1, 1, 1)
 shader_parameter/b = Color(1, 1, 1, 1)
 
@@ -45,6 +44,7 @@ position = Vector2(384, -512)
 [node name="Yarn3" parent="." instance=ExtResource("4_hwge0")]
 material = SubResource("ShaderMaterial_exyvl")
 position = Vector2(128, -512)
+ColorType = 2
 
 [node name="Yarn2" parent="." instance=ExtResource("4_hwge0")]
 material = SubResource("ShaderMaterial_v1e7i")
@@ -54,19 +54,18 @@ position = Vector2(640, -512)
 position = Vector2(768, -83.2)
 
 [node name="PlayerCat" parent="." node_paths=PackedStringArray("_wall") instance=ExtResource("2_cacoq")]
-position = Vector2(-128, -512)
+position = Vector2(512, -640)
 _wall = NodePath("../WallTest")
 
 [node name="DefineLevelTransition" parent="." instance=ExtResource("6_oqdu5")]
 position = Vector2(-512, -256)
-NextLevel = "res://Levels/Intro Levels/Starting.tscn"
+NextLevel = "res://Levels/Template.tscn"
 
 [node name="Button" parent="." instance=ExtResource("7_lxm0u")]
 position = Vector2(-256, 256)
 
 [node name="Door" parent="." node_paths=PackedStringArray("ButtonReference") instance=ExtResource("8_cfvpj")]
 position = Vector2(-384, -256)
-opened_door = ExtResource("9_vpb5c")
 ButtonReference = NodePath("../Button")
 
 [node name="Booster" parent="." instance=ExtResource("10_51fp8")]

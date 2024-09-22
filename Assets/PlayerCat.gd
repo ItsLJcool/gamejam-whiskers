@@ -112,9 +112,13 @@ func _process(delta):
 		var new_y = round(position.y / tile_size) * tile_size
 		position = lerp(position, Vector2(new_x, new_y), delta*move_speed)
 		return
+		
+	if Input.is_action_just_pressed("Reset"):
+		get_tree().reload_current_scene()
 	
 	if CAT_TYPE != CURRENT_CAT:
 		return
+		
 	if Input.is_action_just_pressed("Player_Right") or Input.is_action_just_pressed("Player_Left") or Input.is_action_just_pressed("Player_Down") or Input.is_action_just_pressed("Player_Up"):
 		if $MovementDelay.is_stopped():
 			$MovementDelay.start()

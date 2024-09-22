@@ -25,7 +25,7 @@ rotation = 3.14159
 sprite_frames = ExtResource("1_ojxc7")
 animation = &"booster"
 autoplay = "booster"
-frame_progress = 0.133099
+frame_progress = 0.851215
 
 [node name="Area2D" type="Area2D" parent="AnimatedSprite2D" groups=["Booster"]]
 
