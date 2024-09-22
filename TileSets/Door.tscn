@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bogy3if46mcdu"]
+[gd_scene load_steps=7 format=3 uid="uid://bogy3if46mcdu"]
 
 [ext_resource type="Shader" path="res://TileSets/Among Us Shader.gdshader" id="1_3822q"]
 [ext_resource type="Script" path="res://TileSets/Door.gd" id="1_nqn5e"]
@@ -12,9 +12,6 @@ shader_parameter/r = Color(0.875, 0.592, 0.149, 1)
 shader_parameter/g = Color(1, 1, 1, 1)
 shader_parameter/b = Color(1, 1, 1, 1)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2no4p"]
-size = Vector2(50, 50)
-
 [node name="Door" type="Sprite2D"]
 material = SubResource("ShaderMaterial_5n5mb")
 texture = ExtResource("2_h2hy0")
@@ -23,12 +20,3 @@ script = ExtResource("1_nqn5e")
 closed_door = ExtResource("2_h2hy0")
 locked_door = ExtResource("3_bvvsb")
 opened_door = ExtResource("5_71av7")
-
-[node name="Area2D" type="Area2D" parent="." groups=["Door"]]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-z_index = 4096
-position = Vector2(64, 64)
-shape = SubResource("RectangleShape2D_2no4p")
-
-[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

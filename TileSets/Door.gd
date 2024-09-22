@@ -3,6 +3,17 @@ extends Sprite2D
 
 class_name Doors
 
+func get_all(node):
+	var data:Array = [];
+	if node is Doors:
+		data.push_back(node)
+	for child in node.get_children():
+		for n in get_all(child):
+			data.push_back(n)
+	return data;
+
+static var all:Array = []
+
 enum DoorType {
 	Closed = 0,
 	Locked = 1,
@@ -22,7 +33,6 @@ enum DoorType {
 	set(value):
 		door_state = value
 		var _disabled = true if door_state == DoorType.Opened else false
-		$Area2D/CollisionShape2D.set_deferred("disabled", _disabled)
 		match door_state:
 			DoorType.Opened:
 				texture = opened_door
@@ -36,30 +46,34 @@ enum DoorType {
 func init_door():
 	material.set_shader_parameter("r", Player.COLOR_TYPES.get(Player.type_to_string(ColorType)))
 
-var target_position:Vector2 = Vector2.ZERO
+var Wall:TileMapLayer:
+	get:
+		return Player.Wall
+
+var target_position:Vector2 = Vector2.ZERO:
+	set(value):
+		target_position = value;
+		if Wall != null:
+			GRID_POSITION = Wall.local_to_map(Wall.to_local(target_position))
+
 var prev_target_position:Vector2 = Vector2.ZERO
 
+var GRID_POSITION:Vector2 = Vector2.ZERO
+
 func _ready() -> void:
+	
+	all = get_all(get_tree().root)
+	
 	if ButtonReference:
 		ButtonReference.connect("button_toggled", button_toggled)
 	init_door()
-	var root = get_tree().root
-	var player = find_player_cat(root)
+	var player = Player.find_player_cat(get_tree().root)
 	if player:
 		player.connect("player_moved", _on_player_moved)
 		player.connect("force_complete_movements", _force_complete_movements)
 	
 	target_position = position
 	prev_target_position = target_position
-
-func find_player_cat(node):
-	if node is Player:
-		return node
-	for child in node.get_children():
-		var result = find_player_cat(child)
-		if result:
-			return result
-	return null
 
 var move_speed:int = 15;
 func _process(delta: float) -> void:
@@ -72,17 +86,20 @@ func _process(delta: float) -> void:
 	position = lerp(position, target_position, delta * move_speed)
 
 func _on_player_moved(dir):
+	for cat in Player.all:
+		if cat.GRID_POSITION == GRID_POSITION and cat.CAT_TYPE == ColorType and door_state != DoorType.Opened:
+			cat.move(-dir, [
+			Player.MoveProperties.ALLOW_SLIDING,Player.MoveProperties.CHECK_TILE_MAP
+			])
+	for yarn in Yarn.all:
+		if yarn.GRID_POSITION == GRID_POSITION and yarn.ColorType == ColorType and door_state != DoorType.Opened:
+			yarn.move(-dir, [
+			Player.MoveProperties.ALLOW_SLIDING,Player.MoveProperties.CHECK_TILE_MAP
+			])
 	pass
 
 func _force_complete_movements():
 	pass
-
-func _on_area_2d_area_entered(area: Area2D) -> void:
-	if area.is_in_group("PlayerCat") or area.is_in_group("Movable"):
-		var theObject = area.get_parent()
-		theObject.target_position = theObject.prev_target_position
-		theObject.position = theObject.target_position
-	pass # Replace with function body.
 
 func button_toggled(pushed:bool):
 	if pushed:

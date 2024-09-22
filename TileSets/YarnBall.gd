@@ -3,6 +3,17 @@ extends Sprite2D
 
 class_name Yarn
 
+func get_all(node):
+	var data:Array = [];
+	if node is Yarn:
+		data.push_back(node)
+	for child in node.get_children():
+		for n in get_all(child):
+			data.push_back(n)
+	return data;
+
+static var all:Array = []
+
 @export var ColorType:Player.Type = Player.Type.Yellow:
 	set(value):
 		ColorType = value;
@@ -11,7 +22,11 @@ class_name Yarn
 var move_speed:int = 15;
 var ice_speed:int = 5;
 
-var target_position:Vector2 = Vector2.ZERO
+var target_position:Vector2 = Vector2.ZERO:
+	set(value):
+		target_position = value;
+		if Wall != null:
+			GRID_POSITION = Wall.local_to_map(Wall.to_local(target_position))
 var prev_target_position:Vector2 = Vector2.ZERO
 
 func init_yarn():
@@ -27,29 +42,18 @@ var Wall:TileMapLayer:
 
 var GRID_POSITION:Vector2 = Vector2.ZERO
 
-@onready var yarnCollision:CollisionShape2D = $"YarnArea/Yarn GD COLON!!!!"
-@onready var stopCollision:CollisionShape2D = $StopPlayer/StopPlayerMovement
-
 var is_moving:bool = false
 func _ready():
-	var root = get_tree().root
-	var player = find_player_cat(root)
-	if player:
-		player.connect("player_moved", _on_player_moved)
-		player.connect("force_complete_movements", _force_complete_movements)
+	all = get_all(get_tree().root)
+	if not Engine.is_editor_hint():
+		var root = get_tree().root
+		var player = Player.find_player_cat(root)
+		if player:
+			player.connect("player_moved", _on_player_moved)
+			player.connect("force_complete_movements", _force_complete_movements)
 	
 	target_position = position
 	prev_target_position = target_position
-	tile_map(Wall)
-
-func find_player_cat(node):
-	if node is Player:
-		return node
-	for child in node.get_children():
-		var result = find_player_cat(child)
-		if result:
-			return result
-	return null
 
 var mult_speed = move_speed
 func _process(delta):
@@ -60,41 +64,43 @@ func _process(delta):
 		return
 	
 	if is_moving:
-		position = move_towards_target(position, target_position, mult_speed)
+		position = lerp(position, target_position, delta*mult_speed)
 		
 	if position == target_position:
 		is_moving = false
 
 func _force_complete_movements():
-	stop_movement = false
 	position = target_position
 
-func move(dir):
-	print("Yarn Move")
-	_last_direction = dir
+func move(direction, properties:Array = [
+	Player.MoveProperties.ALLOW_SLIDING, Player.MoveProperties.CHECK_TILE_MAP
+	]):
+	_last_direction = direction
 	prev_target_position = target_position
-	target_position += dir * Player.TILE_SIZE
+	target_position += direction * Player.TILE_SIZE
 	is_moving = true
-	tile_map(Wall)
+
+	if properties.has(Player.MoveProperties.CHECK_TILE_MAP):
+		tile_map(Wall, properties)
 
 func _on_player_moved(dir):
+	for cat in Player.all:
+		if cat.GRID_POSITION == GRID_POSITION and cat.CAT_TYPE == ColorType:
+			pass
+			#move(cat._last_direction)
+	for yarn in Yarn.all:
+		if yarn == self:
+			continue
+		if yarn.GRID_POSITION == GRID_POSITION and yarn.ColorType == ColorType:
+			move(dir, [Player.MoveProperties.CHECK_TILE_MAP])
+			#_on_player_moved(dir)
+		pass
 	pass
-	#if not is_moving:
-		#tile_map(Wall)
-		#target_position += dir * Player.TILE_SIZE
-		#is_moving = true
 
-var stop_movement:bool = false:
-	set(value):
-		stop_movement = value
-		yarnCollision.set_deferred("disabled", stop_movement)
-		stopCollision.set_deferred("disabled", !stop_movement)
-
-func tile_map(TileMapThingy):
+var CAN_MOVE:bool = true;
+func tile_map(TileMapThingy, properties:Array):
 	if TileMapThingy == null:
 		return;
-	
-	GRID_POSITION = TileMapThingy.local_to_map(TileMapThingy.to_local(target_position))
 	
 	var customData = TileMapThingy.get_cell_tile_data(GRID_POSITION)
 	var next_customData = TileMapThingy.get_cell_tile_data(GRID_POSITION + _last_direction)
@@ -102,45 +108,10 @@ func tile_map(TileMapThingy):
 		
 		var allowed_walk = customData.get_custom_data("CatType") == ColorType
 		if not allowed_walk:
-			stop_movement = true
-			target_position = prev_target_position
+			CAN_MOVE = false
+			move(-_last_direction, [])
 		else:
-			stop_movement = false
+			CAN_MOVE = true
 		
-		if customData.get_custom_data("Slippery"):
+		if customData.get_custom_data("Slippery") and properties.has(Player.MoveProperties.ALLOW_SLIDING) and $IceSlideTimer.is_stopped():
 			move(_last_direction)
-
-func move_towards_target(current_position: Vector2, target_position: Vector2, speed: float) -> Vector2:
-	var direction = (target_position - current_position).normalized()
-	var new_position = current_position + direction * speed
-	if current_position.distance_to(target_position) < speed:
-		new_position = target_position
-	return new_position
-
-func _on_yarn_area_area_entered(area: Area2D) -> void:
-	print("_on_yarn_area_area_entered")
-	if area.is_in_group("PlayerCat"):
-		move(Player.LAST_DIRECTION)
-		
-	if area.get_parent() is Yarn:
-		if Wall != null:
-			GRID_POSITION = Wall.local_to_map(Wall.to_local(target_position))
-		print("area parent: ", area.get_parent().GRID_POSITION, " Yarn: ", GRID_POSITION)
-		if area.get_parent().GRID_POSITION == GRID_POSITION:
-			move(Player.LAST_DIRECTION)
-
-func _on_stop_player_area_entered(area: Area2D) -> void:
-	if area.is_in_group("PlayerCat") or area.is_in_group("Movable"):
-		var theObject = area.get_parent()
-		if area.is_in_group("Movable"):
-			theObject.stop_movement = true
-		theObject.target_position = theObject.prev_target_position
-		theObject.position = theObject.target_position
-	pass # Replace with function body.
-
-func _on_stop_player_area_exited(area: Area2D) -> void:
-	stop_movement = false
-
-func _on_test_timeout() -> void:
-	stop_movement = false
-	pass # Replace with function body.

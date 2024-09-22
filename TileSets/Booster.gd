@@ -3,6 +3,17 @@ extends Node2D
 
 class_name Booster
 
+func get_all(node):
+	var data:Array = [];
+	if node is Booster:
+		data.push_back(node)
+	for child in node.get_children():
+		for n in get_all(child):
+			data.push_back(n)
+	return data;
+
+static var all:Array = []
+
 enum Direction {
 	LEFT = 0,
 	DOWN = 1,
@@ -49,12 +60,30 @@ func init_booster():
 	if BoosterSpr != null:
 		BoosterSpr.material.set_shader_parameter("r", Player.COLOR_TYPES.get(Player.type_to_string(ColorType)))
 
-var target_position:Vector2 = Vector2.ZERO
+var Wall:TileMapLayer:
+	get:
+		return Player.Wall
+
+var target_position:Vector2 = Vector2.ZERO:
+	set(value):
+		target_position = value;
+		if Wall != null:
+			GRID_POSITION = Wall.local_to_map(Wall.to_local(target_position))
+
 var prev_target_position:Vector2 = Vector2.ZERO
 
+var GRID_POSITION:Vector2 = Vector2.ZERO
+
 func _ready() -> void:
+	all = get_all(get_tree().root)
 	init_booster()
 	dir_booster()
+	if not Engine.is_editor_hint():
+		var root = get_tree().root
+		var player = Player.find_player_cat(root)
+		if player:
+			player.connect("player_moved", _on_player_moved)
+			player.connect("force_complete_movements", _force_complete_movements)
 	target_position = position
 	prev_target_position = target_position
 	pass # Replace with function body.
@@ -70,15 +99,13 @@ func _process(delta: float) -> void:
 	position = lerp(position, target_position, delta * move_speed)
 
 func _on_player_moved(dir):
+	for cat in Player.all:
+		if cat.GRID_POSITION == GRID_POSITION and cat.CAT_TYPE == ColorType:
+			cat.move(dir_to_vector()*2)
+	for yarn in Yarn.all:
+		if yarn.GRID_POSITION == GRID_POSITION and yarn.ColorType == ColorType:
+			yarn.move(dir_to_vector()*2)
 	pass
 	
 func _force_complete_movements():
 	pass
-
-func _on_area_2d_area_entered(area: Area2D) -> void:
-	if (area.is_in_group("PlayerCat") and Player.CURRENT_CAT == ColorType) or (area.is_in_group("Movable") and area.get_parent().ColorType == ColorType):
-		await get_tree().create_timer($Delay.wait_time).timeout
-		var theObject = area.get_parent()
-		theObject.move(dir_to_vector()*2)
-		
-	pass # Replace with function body.

@@ -3,6 +3,17 @@ extends Node2D
 
 class_name ButtonCustom
 
+func get_all(node):
+	var data:Array = [];
+	if node is ButtonCustom:
+		data.push_back(node)
+	for child in node.get_children():
+		for n in get_all(child):
+			data.push_back(n)
+	return data;
+
+static var all:Array = []
+
 signal button_toggled(pushed:bool)
 
 @export var ColorType:Player.Type = Player.Type.Yellow:
@@ -20,12 +31,19 @@ var Wall:TileMapLayer:
 	get:
 		return Player.Wall
 
-var target_position:Vector2 = Vector2.ZERO
+var target_position:Vector2 = Vector2.ZERO:
+	set(value):
+		target_position = value;
+		if Wall != null:
+			GRID_POSITION = Wall.local_to_map(Wall.to_local(target_position))
 var prev_target_position:Vector2 = Vector2.ZERO
+
+var GRID_POSITION:Vector2 = Vector2.ZERO
 
 @onready var button:Sprite2D = $Sprite2D
 
 func _ready() -> void:
+	all = get_all(get_tree().root)
 	init_button()
 	var root = get_tree().root
 	var player = find_player_cat(root)
@@ -56,6 +74,21 @@ func _process(delta: float) -> void:
 	position = lerp(position, target_position, delta * move_speed)
 
 func _on_player_moved(dir):
+	print("_on_player_moved BUTTON: ", GRID_POSITION)
+	print("pushed: ", pushed)
+	for cat in Player.all:
+		if cat.GRID_POSITION == GRID_POSITION and cat.CAT_TYPE == ColorType:
+			pushed = true
+			return
+		else:
+			pushed = false
+	
+	for yarn in Yarn.all:
+		if yarn.GRID_POSITION == GRID_POSITION and yarn.ColorType == ColorType:
+			pushed = true
+			return
+		else:
+			pushed = false
 	pass
 	
 func _force_complete_movements():
@@ -66,15 +99,3 @@ var pushed:bool = false:
 		pushed = value
 		button.texture = button_sprite if !pushed else button_pushed
 		button_toggled.emit(pushed)
-
-func _on_area_2d_area_entered(area: Area2D) -> void:
-	print("button _on_area_2d_area_entered")
-	if (area.is_in_group("PlayerCat") and Player.CURRENT_CAT == ColorType) or (area.is_in_group("Movable") and area.get_parent().ColorType == ColorType):
-		pushed = true
-	pass # Replace with function body.
-
-func _on_area_2d_area_exited(area: Area2D) -> void:
-	print("button _on_area_2d_area_exited")
-	if (area.is_in_group("PlayerCat") and Player.CURRENT_CAT == ColorType) or (area.is_in_group("Movable") and area.get_parent().ColorType == ColorType):
-		pushed = false
-	pass # Replace with function body.
