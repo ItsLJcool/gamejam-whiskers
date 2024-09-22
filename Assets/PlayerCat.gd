@@ -144,7 +144,6 @@ func get_direction_from_input() -> Vector2:
 	return Vector2.ZERO
 
 func move(direction: Vector2):
-	print("Player Move")
 	_last_direction = direction
 	prev_target_position = target_position
 	target_position += direction * tile_size

@@ -29,6 +29,7 @@ SceneTrigger=""
 Button=""
 Door=""
 Movable=""
+Booster=""
 
 [input]
 

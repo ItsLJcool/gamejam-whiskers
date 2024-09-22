@@ -88,7 +88,6 @@ var stop_movement:bool = false:
 		stop_movement = value
 		yarnCollision.set_deferred("disabled", stop_movement)
 		stopCollision.set_deferred("disabled", !stop_movement)
-		print(tempIDX, " | stop_movement: ", stop_movement)
 
 func tile_map(TileMapThingy):
 	if TileMapThingy == null:
@@ -115,7 +114,6 @@ func move_towards_target(current_position: Vector2, target_position: Vector2, sp
 		new_position = target_position
 	return new_position
 
-@export var tempIDX:int = 0
 func _on_yarn_area_area_entered(area: Area2D) -> void:
 	print("_on_yarn_area_area_entered")
 	if area.is_in_group("PlayerCat"):

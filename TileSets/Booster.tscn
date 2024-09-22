@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://b5fbphxukm8ac"]
+
+[ext_resource type="SpriteFrames" uid="uid://l1p1i7al62mq" path="res://TileSets/Images/booster/BoosterAnim.tres" id="1_ojxc7"]
+[ext_resource type="Shader" path="res://TileSets/Among Us Shader.gdshader" id="2_i0wps"]
+[ext_resource type="Script" path="res://TileSets/Booster.gd" id="3_2oi4g"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r5s3y"]
+resource_local_to_scene = true
+shader = ExtResource("2_i0wps")
+shader_parameter/r = Color(0.875, 0.592, 0.149, 1)
+shader_parameter/g = Color(1, 1, 1, 1)
+shader_parameter/b = Color(1, 1, 1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5s35v"]
+size = Vector2(100, 100)
+
+[node name="Booster" type="Node2D"]
+script = ExtResource("3_2oi4g")
+BOOSTER_DIRECTION = 0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_r5s3y")
+position = Vector2(64, 64)
+rotation = 3.14159
+sprite_frames = ExtResource("1_ojxc7")
+animation = &"booster"
+autoplay = "booster"
+frame_progress = 0.133099
+
+[node name="Area2D" type="Area2D" parent="AnimatedSprite2D" groups=["Booster"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Area2D"]
+rotation = -1.5708
+shape = SubResource("RectangleShape2D_5s35v")
+debug_color = Color(0.277626, 0.531502, 0.901371, 0.42)
+
+[node name="Delay" type="Timer" parent="."]
+wait_time = 0.075
+one_shot = true
+
+[connection signal="area_entered" from="AnimatedSprite2D/Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="timeout" from="Delay" to="." method="_on_delay_timeout"]

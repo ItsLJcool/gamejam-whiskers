@@ -14,7 +14,6 @@ tile_set = ExtResource("1_muoxe")
 tile_set = ExtResource("1_muoxe")
 
 [node name="Camera" parent="." instance=ExtResource("3_1ea74")]
-position = Vector2(1.4013e-45, 44.8)
 
 [node name="PlayerCat" parent="." node_paths=PackedStringArray("_wall", "_topLayer") instance=ExtResource("1_sh655")]
 position = Vector2(-128, -128)
