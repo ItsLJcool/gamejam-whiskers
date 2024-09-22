@@ -3,7 +3,7 @@ extends Node2D
 
 class_name Transition
 
-@export var NextLevel:PackedScene
+@export var NextLevel:String
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -29,5 +29,5 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 
 
 func _on_transition_timer_timeout() -> void:
-	get_tree().change_scene_to_packed(NextLevel)
+	get_tree().change_scene_to_file(NextLevel)
 	pass # Replace with function body.

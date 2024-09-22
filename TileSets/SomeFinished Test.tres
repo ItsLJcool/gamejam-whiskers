@@ -177,6 +177,4 @@ custom_data_layer_0/name = "CatType"
 custom_data_layer_0/type = 2
 custom_data_layer_1/name = "Slippery"
 custom_data_layer_1/type = 1
-custom_data_layer_2/name = "Movable"
-custom_data_layer_2/type = 1
 sources/0 = SubResource("TileSetAtlasSource_r2hn3")

@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=4 uid="uid://0g0yqna60l3q"]
+[gd_scene load_steps=5 format=4 uid="uid://0g0yqna60l3q"]
 
 [ext_resource type="TileSet" uid="uid://da3fpmg2684ih" path="res://TileSets/SomeFinished Test.tres" id="1_nbih5"]
 [ext_resource type="PackedScene" uid="uid://lr0s2mjs6siy" path="res://Tools/CameraLevel.tscn" id="2_mh11x"]
 [ext_resource type="PackedScene" uid="uid://pv8m5sf23dfq" path="res://Assets/PlayerCat.tscn" id="3_mtl4x"]
 [ext_resource type="PackedScene" uid="uid://ca0suwyjmpl3y" path="res://Tools/DefineLevelTransition.tscn" id="4_5mp21"]
-[ext_resource type="PackedScene" uid="uid://crplkh8tm378t" path="res://Levels/temp_test.tscn" id="5_7c6vw"]
 
 [node name="TempTest2" type="Node2D"]
 
@@ -28,4 +27,4 @@ _last_direction = Vector2(-1, 0)
 
 [node name="DefineLevelTransition" parent="." instance=ExtResource("4_5mp21")]
 position = Vector2(-1408, 128)
-NextLevel = ExtResource("5_7c6vw")
+NextLevel = "res://Levels/temp_test.tscn"

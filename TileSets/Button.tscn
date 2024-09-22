@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://dmkyhfgsx184s"]
+
+[ext_resource type="Texture2D" uid="uid://idw83j1e6bo8" path="res://TileSets/Images/Button.png" id="1_fxjm3"]
+[ext_resource type="Shader" path="res://TileSets/Among Us Shader.gdshader" id="1_n6ube"]
+[ext_resource type="Script" path="res://TileSets/Button.gd" id="2_qliqp"]
+[ext_resource type="Texture2D" uid="uid://smxolnaqsfoo" path="res://TileSets/Images/Button_Pushed.png" id="3_n24mw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q22cn"]
+shader = ExtResource("1_n6ube")
+shader_parameter/r = Color(0.875, 0.592, 0.149, 1)
+shader_parameter/g = Color(1, 1, 1, 1)
+shader_parameter/b = Color(1, 1, 1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kgjpm"]
+size = Vector2(25, 25)
+
+[node name="Button" type="Node2D"]
+script = ExtResource("2_qliqp")
+button_sprite = ExtResource("1_fxjm3")
+button_pushed = ExtResource("3_n24mw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_q22cn")
+position = Vector2(0, 20)
+texture = ExtResource("1_fxjm3")
+centered = false
+
+[node name="Area2D" type="Area2D" parent="Sprite2D" groups=["Button"]]
+
+[node name="BoxHit" type="CollisionShape2D" parent="Sprite2D/Area2D"]
+position = Vector2(64, 44)
+shape = SubResource("RectangleShape2D_kgjpm")
+debug_color = Color(0.779784, 0.289353, 0.819824, 0.42)
+
+[connection signal="area_entered" from="Sprite2D/Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Sprite2D/Area2D" to="." method="_on_area_2d_area_exited"]

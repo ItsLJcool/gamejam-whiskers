@@ -24,10 +24,11 @@ window/stretch/mode="canvas_items"
 [global_group]
 
 PlayerCat=""
-CameraViewFrame=""
-Yarn=""
 StopPlayer=""
 SceneTrigger=""
+Button=""
+Door=""
+Movable=""
 
 [input]
 

@@ -7,6 +7,8 @@
 size = Vector2(124, 124)
 
 [node name="PlayerCat" type="Node2D"]
+z_index = 2048
+z_as_relative = false
 script = ExtResource("1_a15mm")
 ice_speed = 10
 _last_direction = Vector2(1, 0)
@@ -23,12 +25,9 @@ shape = SubResource("RectangleShape2D_v3c3h")
 debug_color = Color(0.311994, 0.617408, 0.30935, 0.42)
 
 [node name="MovementDelay" type="Timer" parent="."]
-wait_time = 0.05
+wait_time = 0.1
 one_shot = true
 
 [node name="IceSlideTimer" type="Timer" parent="."]
 wait_time = 0.075
 one_shot = true
-
-[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
-[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
