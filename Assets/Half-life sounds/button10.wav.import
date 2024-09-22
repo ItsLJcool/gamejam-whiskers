@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dgvir6gurd2dh"
+path="res://.godot/imported/button10.wav-7b6799e2f86eff9f7d265bea2b08dc96.sample"
+
+[deps]
+
+source_file="res://Assets/Half-life sounds/button10.wav"
+dest_files=["res://.godot/imported/button10.wav-7b6799e2f86eff9f7d265bea2b08dc96.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

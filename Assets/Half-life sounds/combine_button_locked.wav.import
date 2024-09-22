@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dpm05n2rfnj3d"
+path="res://.godot/imported/combine_button_locked.wav-2b03e228714d54b59805a03aa8b550f7.sample"
+
+[deps]
+
+source_file="res://Assets/Half-life sounds/combine_button_locked.wav"
+dest_files=["res://.godot/imported/combine_button_locked.wav-2b03e228714d54b59805a03aa8b550f7.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b2i3ele18s24l"
+path="res://.godot/imported/button18.wav-84cbe334c0876b39f3e931892e5af6b7.sample"
+
+[deps]
+
+source_file="res://Assets/Half-life sounds/button18.wav"
+dest_files=["res://.godot/imported/button18.wav-84cbe334c0876b39f3e931892e5af6b7.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

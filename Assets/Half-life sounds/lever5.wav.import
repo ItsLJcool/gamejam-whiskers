@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b4fy2d2tdpcy2"
+path="res://.godot/imported/lever5.wav-32f234a98876551b0485b6b1b6033f2d.sample"
+
+[deps]
+
+source_file="res://Assets/Half-life sounds/lever5.wav"
+dest_files=["res://.godot/imported/lever5.wav-32f234a98876551b0485b6b1b6033f2d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
