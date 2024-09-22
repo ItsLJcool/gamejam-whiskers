@@ -66,6 +66,7 @@ func _process(delta):
 		is_moving = false
 
 func _force_complete_movements():
+	stop_movement = false
 	position = target_position
 
 func move(dir):
@@ -103,6 +104,8 @@ func tile_map(TileMapThingy):
 		if not allowed_walk:
 			stop_movement = true
 			target_position = prev_target_position
+		else:
+			stop_movement = false
 		
 		if customData.get_custom_data("Slippery"):
 			move(_last_direction)
@@ -127,7 +130,6 @@ func _on_yarn_area_area_entered(area: Area2D) -> void:
 			move(Player.LAST_DIRECTION)
 
 func _on_stop_player_area_entered(area: Area2D) -> void:
-	print("_on_stop_player_area_entered")
 	if area.is_in_group("PlayerCat") or area.is_in_group("Movable"):
 		var theObject = area.get_parent()
 		if area.is_in_group("Movable"):
@@ -138,7 +140,6 @@ func _on_stop_player_area_entered(area: Area2D) -> void:
 
 func _on_stop_player_area_exited(area: Area2D) -> void:
 	stop_movement = false
-
 
 func _on_test_timeout() -> void:
 	stop_movement = false

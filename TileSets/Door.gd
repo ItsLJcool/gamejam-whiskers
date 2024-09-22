@@ -40,7 +40,8 @@ var target_position:Vector2 = Vector2.ZERO
 var prev_target_position:Vector2 = Vector2.ZERO
 
 func _ready() -> void:
-	ButtonReference.connect("button_toggled", button_toggled)
+	if ButtonReference:
+		ButtonReference.connect("button_toggled", button_toggled)
 	init_door()
 	var root = get_tree().root
 	var player = find_player_cat(root)

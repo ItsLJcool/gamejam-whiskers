@@ -48,6 +48,6 @@ wait_time = 0.075
 one_shot = true
 
 [connection signal="area_entered" from="YarnArea" to="." method="_on_yarn_area_area_entered"]
+[connection signal="area_exited" from="YarnArea" to="." method="_on_yarn_area_area_exited"]
 [connection signal="area_entered" from="StopPlayer" to="." method="_on_stop_player_area_entered"]
-[connection signal="area_exited" from="StopPlayer" to="." method="_on_stop_player_area_exited"]
 [connection signal="timeout" from="Test" to="." method="_on_test_timeout"]
