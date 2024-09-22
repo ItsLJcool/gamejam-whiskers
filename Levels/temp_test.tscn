@@ -20,7 +20,7 @@ shader_parameter/b = Color(1, 1, 1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_exyvl"]
 resource_local_to_scene = true
 shader = ExtResource("5_sar7g")
-shader_parameter/r = Color(0.827, 0, 0, 1)
+shader_parameter/r = Color(0.875, 0.592, 0.149, 1)
 shader_parameter/g = Color(1, 1, 1, 1)
 shader_parameter/b = Color(1, 1, 1, 1)
 
@@ -44,7 +44,6 @@ position = Vector2(384, -512)
 [node name="Yarn3" parent="." instance=ExtResource("4_hwge0")]
 material = SubResource("ShaderMaterial_exyvl")
 position = Vector2(128, -512)
-ColorType = 2
 
 [node name="Yarn2" parent="." instance=ExtResource("4_hwge0")]
 material = SubResource("ShaderMaterial_v1e7i")
@@ -54,7 +53,7 @@ position = Vector2(640, -512)
 position = Vector2(768, -83.2)
 
 [node name="PlayerCat" parent="." node_paths=PackedStringArray("_wall") instance=ExtResource("2_cacoq")]
-position = Vector2(512, -640)
+position = Vector2(-512, -768)
 _wall = NodePath("../WallTest")
 
 [node name="DefineLevelTransition" parent="." instance=ExtResource("6_oqdu5")]
@@ -70,4 +69,5 @@ ButtonReference = NodePath("../Button")
 
 [node name="Booster" parent="." instance=ExtResource("10_51fp8")]
 position = Vector2(0, 128)
+ColorType = 1
 BOOSTER_DIRECTION = 3

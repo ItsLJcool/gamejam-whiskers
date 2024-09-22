@@ -83,8 +83,8 @@ var is_moving:bool = false
 func _ready():
 	init_cat()
 	target_position = position
-	#if ON_SCENE_START_MOVE:
-		#move_direction(_last_direction)
+	if ON_SCENE_START_MOVE:
+		move(_last_direction)
 	
 var FLIPPED = false:
 	set(value):
@@ -167,7 +167,7 @@ func tile_map(TileMapThingy):
 	var next_customData = TileMapThingy.get_cell_tile_data(GRID_POSITION + _last_direction)
 	if customData:
 		# For now, just stop the player from entering, they should respawn when they enter though.
-		var allowed_walk = customData.get_custom_data("CatType") == CAT_TYPE
+		var allowed_walk = customData.get_custom_data("CatType") == CAT_TYPE or CAT_TYPE < 0
 		if not allowed_walk:
 			target_position = prev_target_position
 		

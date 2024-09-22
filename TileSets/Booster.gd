@@ -46,7 +46,8 @@ func dir_booster():
 				BoosterSpr.rotation_degrees = 0
 
 func init_booster():
-	BoosterSpr.material.set_shader_parameter("r", Player.COLOR_TYPES.get(Player.type_to_string(ColorType)))
+	if BoosterSpr != null:
+		BoosterSpr.material.set_shader_parameter("r", Player.COLOR_TYPES.get(Player.type_to_string(ColorType)))
 
 var target_position:Vector2 = Vector2.ZERO
 var prev_target_position:Vector2 = Vector2.ZERO
@@ -75,7 +76,7 @@ func _force_complete_movements():
 	pass
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
-	if area.is_in_group("PlayerCat") or area.is_in_group("Movable"):
+	if (area.is_in_group("PlayerCat") and Player.CURRENT_CAT == ColorType) or (area.is_in_group("Movable") and area.get_parent().ColorType == ColorType):
 		await get_tree().create_timer($Delay.wait_time).timeout
 		var theObject = area.get_parent()
 		theObject.move(dir_to_vector()*2)
