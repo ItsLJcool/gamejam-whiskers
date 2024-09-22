@@ -7,8 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://b6s1qxntdymx8" path="res://TileSets/Images/Open_door1.png" id="5_71av7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5n5mb"]
+resource_local_to_scene = true
 shader = ExtResource("1_3822q")
-shader_parameter/r = Color(0.875, 0.592, 0.149, 1)
+shader_parameter/r = Color(0.094, 0.773, 0.804, 1)
 shader_parameter/g = Color(1, 1, 1, 1)
 shader_parameter/b = Color(1, 1, 1, 1)
 

@@ -144,6 +144,7 @@ func _process(delta):
 	
 	if CAT_TYPE != CURRENT_CAT:
 		position = lerp(position, target_position, delta*mult_speed)
+		move(Vector2.ZERO)
 		return
 		
 	if Input.is_action_just_pressed("Player_Right") or Input.is_action_just_pressed("Player_Left") or Input.is_action_just_pressed("Player_Down") or Input.is_action_just_pressed("Player_Up"):
@@ -173,10 +174,12 @@ enum MoveProperties {
 	ALLOW_SLIDING,
 	CHECK_TILE_MAP,
 	FLIP,
+	CHECK_OVERLAP,
 }
  
 func move(direction, properties:Array = [
-	Player.MoveProperties.ALLOW_SLIDING, Player.MoveProperties.CHECK_TILE_MAP, Player.MoveProperties.FLIP
+	Player.MoveProperties.ALLOW_SLIDING, Player.MoveProperties.CHECK_TILE_MAP, Player.MoveProperties.FLIP,
+	Player.MoveProperties.CHECK_OVERLAP
 	]):
 	if properties.has(MoveProperties.FLIP):
 		if direction.x != 0:
@@ -186,7 +189,8 @@ func move(direction, properties:Array = [
 	target_position += direction * tile_size
 	is_moving = true
 	
-	check_overlaps()
+	if properties.has(MoveProperties.CHECK_OVERLAP):
+		check_overlaps()
 	player_moved.emit(direction)
 	if properties.has(MoveProperties.CHECK_TILE_MAP):
 		tile_map(Wall, properties)
@@ -210,17 +214,13 @@ func check_overlaps():
 		if not is_instance_valid(booster):
 			continue
 		if booster.GRID_POSITION == GRID_POSITION and booster.ColorType == CAT_TYPE:
-			print("MOVE PUSSY")
 			move(booster.dir_to_vector()*2)
 			
 	for door in Doors.all:
 		if not is_instance_valid(door):
 			continue
 		if door.GRID_POSITION == GRID_POSITION and door.ColorType == CAT_TYPE and door.door_state != Doors.DoorType.Opened:
-			move(-_last_direction, [
-			Player.MoveProperties.ALLOW_SLIDING,Player.MoveProperties.CHECK_TILE_MAP
-			])
-	pass
+			move(-_last_direction, [])
 
 var CAN_MOVE:bool = true;
 func tile_map(TileMapThingy, properties):
@@ -233,7 +233,7 @@ func tile_map(TileMapThingy, properties):
 		var allowed_walk = customData.get_custom_data("CatType") == CAT_TYPE or CAT_TYPE < 0
 		if not allowed_walk:
 			CAN_MOVE = false
-			move(-_last_direction, [])
+			move(-_last_direction, [Player.MoveProperties.CHECK_OVERLAP])
 		else:
 			CAN_MOVE = true
 		

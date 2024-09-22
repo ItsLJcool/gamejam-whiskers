@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://0g0yqna60l3q"]
+[gd_scene load_steps=11 format=4 uid="uid://0g0yqna60l3q"]
 
 [ext_resource type="TileSet" uid="uid://da3fpmg2684ih" path="res://TileSets/SomeFinished Test.tres" id="1_nbih5"]
 [ext_resource type="PackedScene" uid="uid://lr0s2mjs6siy" path="res://Tools/CameraLevel.tscn" id="2_mh11x"]
@@ -8,6 +8,13 @@
 [ext_resource type="PackedScene" uid="uid://dmkyhfgsx184s" path="res://TileSets/Button.tscn" id="6_eguky"]
 [ext_resource type="PackedScene" uid="uid://co83codtadvq4" path="res://TileSets/YarnBall.tscn" id="7_le4j5"]
 [ext_resource type="Shader" path="res://TileSets/Among Us Shader.gdshader" id="8_bwxhj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n0nhp"]
+resource_local_to_scene = true
+shader = ExtResource("8_bwxhj")
+shader_parameter/r = Color(0.875, 0.592, 0.149, 1)
+shader_parameter/g = Color(1, 1, 1, 1)
+shader_parameter/b = Color(1, 1, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vkghi"]
 resource_local_to_scene = true
@@ -25,6 +32,24 @@ tile_set = ExtResource("1_nbih5")
 [node name="TopLayer" type="TileMapLayer" parent="."]
 tile_set = ExtResource("1_nbih5")
 
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 53.0
+offset_top = -376.0
+offset_right = 406.0
+offset_bottom = -223.0
+mouse_filter = 2
+mouse_force_pass_scroll_events = false
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/normal_font_size = 35
+text = "Press R to Reset
+
+WASD for Controls"
+scroll_active = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+
 [node name="Camera" parent="." instance=ExtResource("2_mh11x")]
 position = Vector2(-384, 44.8)
 Zoom = 0.72
@@ -41,6 +66,7 @@ position = Vector2(-1408, 128)
 NextLevel = "res://Levels/Intro Levels/Level1.tscn"
 
 [node name="Door" parent="." node_paths=PackedStringArray("ButtonReference") instance=ExtResource("5_bhy2w")]
+material = SubResource("ShaderMaterial_n0nhp")
 position = Vector2(-1152, 128)
 ButtonReference = NodePath("../Button")
 

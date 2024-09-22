@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://djftaqiu6amk4"]
+[gd_scene load_steps=20 format=4 uid="uid://djftaqiu6amk4"]
 
 [ext_resource type="TileSet" uid="uid://da3fpmg2684ih" path="res://TileSets/SomeFinished Test.tres" id="1_ps76u"]
 [ext_resource type="PackedScene" uid="uid://lr0s2mjs6siy" path="res://Tools/CameraLevel.tscn" id="2_xbfbs"]
@@ -9,6 +9,34 @@
 [ext_resource type="PackedScene" uid="uid://dmkyhfgsx184s" path="res://TileSets/Button.tscn" id="7_vcjek"]
 [ext_resource type="PackedScene" uid="uid://co83codtadvq4" path="res://TileSets/YarnBall.tscn" id="8_ns1t1"]
 [ext_resource type="Shader" path="res://TileSets/Among Us Shader.gdshader" id="9_wa2j5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a0fhh"]
+resource_local_to_scene = true
+shader = ExtResource("9_wa2j5")
+shader_parameter/r = Color(0.875, 0.592, 0.149, 1)
+shader_parameter/g = Color(1, 1, 1, 1)
+shader_parameter/b = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fgop4"]
+resource_local_to_scene = true
+shader = ExtResource("9_wa2j5")
+shader_parameter/r = Color(0.875, 0.592, 0.149, 1)
+shader_parameter/g = Color(1, 1, 1, 1)
+shader_parameter/b = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ttkpy"]
+resource_local_to_scene = true
+shader = ExtResource("9_wa2j5")
+shader_parameter/r = Color(0.875, 0.592, 0.149, 1)
+shader_parameter/g = Color(1, 1, 1, 1)
+shader_parameter/b = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v00ct"]
+resource_local_to_scene = true
+shader = ExtResource("9_wa2j5")
+shader_parameter/r = Color(0.875, 0.592, 0.149, 1)
+shader_parameter/g = Color(1, 1, 1, 1)
+shader_parameter/b = Color(1, 1, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fnik6"]
 resource_local_to_scene = true
@@ -25,6 +53,20 @@ shader_parameter/g = Color(1, 1, 1, 1)
 shader_parameter/b = Color(1, 1, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qjtdl"]
+resource_local_to_scene = true
+shader = ExtResource("9_wa2j5")
+shader_parameter/r = Color(0.875, 0.592, 0.149, 1)
+shader_parameter/g = Color(1, 1, 1, 1)
+shader_parameter/b = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q415p"]
+resource_local_to_scene = true
+shader = ExtResource("9_wa2j5")
+shader_parameter/r = Color(0.875, 0.592, 0.149, 1)
+shader_parameter/g = Color(1, 1, 1, 1)
+shader_parameter/b = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wnqnr"]
 resource_local_to_scene = true
 shader = ExtResource("9_wa2j5")
 shader_parameter/r = Color(0.875, 0.592, 0.149, 1)
@@ -60,11 +102,13 @@ ON_SCENE_START_MOVE = true
 
 [node name="DefineLevelTransition" parent="." instance=ExtResource("4_1x70s")]
 position = Vector2(-1408, 512)
+NextLevel = "res://Levels/ColorType Levels/Level1.tscn"
 
 [node name="Booster" parent="." instance=ExtResource("5_xcu25")]
 position = Vector2(768, -384)
 
 [node name="Door" parent="." node_paths=PackedStringArray("ButtonReference") instance=ExtResource("6_u2ddv")]
+material = SubResource("ShaderMaterial_a0fhh")
 position = Vector2(384, 128)
 ButtonReference = NodePath("../Button")
 
@@ -81,14 +125,17 @@ position = Vector2(-1024, -256)
 position = Vector2(384, -256)
 
 [node name="Door2" parent="." node_paths=PackedStringArray("ButtonReference") instance=ExtResource("6_u2ddv")]
+material = SubResource("ShaderMaterial_fgop4")
 position = Vector2(-1280, 512)
 ButtonReference = NodePath("../Button3")
 
 [node name="Door3" parent="." node_paths=PackedStringArray("ButtonReference") instance=ExtResource("6_u2ddv")]
+material = SubResource("ShaderMaterial_ttkpy")
 position = Vector2(-256, 128)
 ButtonReference = NodePath("../Button4")
 
 [node name="Door4" parent="." node_paths=PackedStringArray("ButtonReference") instance=ExtResource("6_u2ddv")]
+material = SubResource("ShaderMaterial_v00ct")
 position = Vector2(-1024, -128)
 ButtonReference = NodePath("../Button2")
 
@@ -119,6 +166,7 @@ material = SubResource("ShaderMaterial_qjtdl")
 position = Vector2(256, 256)
 
 [node name="Door6" parent="." node_paths=PackedStringArray("ButtonReference") instance=ExtResource("6_u2ddv")]
+material = SubResource("ShaderMaterial_q415p")
 position = Vector2(-1152, 512)
 ButtonReference = NodePath("../Button6")
 
@@ -129,6 +177,7 @@ position = Vector2(256, -384)
 position = Vector2(384, 512)
 
 [node name="Door5" parent="." node_paths=PackedStringArray("ButtonReference") instance=ExtResource("6_u2ddv")]
+material = SubResource("ShaderMaterial_wnqnr")
 position = Vector2(1024, 384)
 ButtonReference = NodePath("../Button5")
 

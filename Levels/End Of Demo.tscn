@@ -1,0 +1,89 @@
+[gd_scene load_steps=6 format=3 uid="uid://btf6ppnailyhp"]
+
+[ext_resource type="Script" path="res://Levels/Demo.gd" id="1_4pmyu"]
+
+[sub_resource type="Gradient" id="Gradient_ipcdr"]
+colors = PackedColorArray(0.18, 0.17148, 0.0522, 1, 0.34, 0.325493, 0.1224, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6sgms"]
+gradient = SubResource("Gradient_ipcdr")
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rsca7"]
+size = Vector2(1314.5, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2uuoq"]
+size = Vector2(1367, 20)
+
+[node name="EndOfDemo" type="Node2D"]
+script = ExtResource("1_4pmyu")
+ToMainMenu = "res://MainMenu.tscn"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -18.0
+offset_top = -12.0
+offset_right = 1295.0
+offset_bottom = 750.0
+texture = SubResource("GradientTexture2D_6sgms")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 74.0
+offset_top = 749.0
+offset_right = 1164.0
+offset_bottom = 2240.0
+theme_override_constants/outline_size = 7
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "[center]Thanks for playing the demo!
+
+
+We are aware of issues, and it was my first time making a Grid Based System, so its kinda bad lol.
+
+If we continue this game, I will probably redo most things, since it was made quickly 😭
+
+This would be my 2nd time making a game in Godot, and my first Game Jam!!
+
+Shout outs to the \"Team\":
+Jayce - Art / Level Design
+Landon (ItsLJcool) - Coding... ALL of it 😫
+
+Lavendar - Coding Help
+Haven - Coding Help
+Nova - Emotional Support
+Crimson - Cursing My Roblox Speedruns (Emotional Support)
+Luigi - Uh idk (Thanks Luigi)
+
+ChatGPT - NOT Helping me code, and instead gave me more headaches, THE REASON WHY I REWROTE THE MOVEMENT TWICE!!
+
+
+Thanks for Playing!
+
+
+
+
+
+/kill @s
+WAIT NOOO"
+
+[node name="Area2D" type="Area2D" parent="RichTextLabel"]
+position = Vector2(-74, -12)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RichTextLabel/Area2D"]
+position = Vector2(575, 1432)
+shape = SubResource("RectangleShape2D_rsca7")
+
+[node name="FunnyArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FunnyArea2D"]
+position = Vector2(617, 721)
+shape = SubResource("RectangleShape2D_2uuoq")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -64.0
+offset_top = -25.0
+offset_right = 1394.0
+offset_bottom = 756.0
+color = Color(0, 0, 0, 0)
+
+[connection signal="area_entered" from="RichTextLabel/Area2D" to="." method="_on_area_2d_area_entered"]

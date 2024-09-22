@@ -3,6 +3,10 @@ extends Node2D
 
 class_name ButtonCustom
 
+@export var sfx:AudioStream
+
+var sfx_player:AudioStreamPlayer = AudioStreamPlayer.new()
+
 func get_all(node):
 	var data:Array = [];
 	if node is ButtonCustom:
@@ -25,7 +29,8 @@ signal button_toggled(pushed:bool)
 @export var button_pushed:Texture
 
 func init_button():
-	button.material.set_shader_parameter("r", Player.COLOR_TYPES.get(Player.type_to_string(ColorType)))
+	if button != null:
+		button.material.set_shader_parameter("r", Player.COLOR_TYPES.get(Player.type_to_string(ColorType)))
 
 var Wall:TileMapLayer:
 	get:
@@ -47,6 +52,9 @@ func _ready() -> void:
 	all = []
 	all = get_all(get_tree().root)
 	init_button()
+	
+	sfx_player.stream = sfx
+	add_child(sfx_player)
 	var root = get_tree().root
 	var player = Player.find_player_cat(root)
 	if player:
@@ -67,23 +75,14 @@ func _process(delta: float) -> void:
 	position = lerp(position, target_position, delta * move_speed)
 
 func _on_player_moved(dir):
-	for cat in Player.all:
-		if not is_instance_valid(cat):
-			continue
-		if cat.GRID_POSITION == GRID_POSITION and cat.CAT_TYPE == ColorType:
-			pushed = true
-			return
-		else:
-			pushed = false
-	
+	if _overridePlayer:
+		return
 	for yarn in Yarn.all:
 		if not is_instance_valid(yarn):
 			continue
-		if yarn.GRID_POSITION == GRID_POSITION and yarn.ColorType == ColorType:
+		if yarn.GRID_POSITION == GRID_POSITION and yarn.ColorType == ColorType and !pushed:
 			pushed = true
-			return
-		else:
-			pushed = false
+			break
 	pass
 	
 func _force_complete_movements():
@@ -91,6 +90,29 @@ func _force_complete_movements():
 
 var pushed:bool = false:
 	set(value):
+		var prev = pushed
 		pushed = value
+		print("button push: ", value)
+		if prev != pushed:
+			sfx_player.play()
 		button.texture = button_sprite if !pushed else button_pushed
 		button_toggled.emit(pushed)
+
+
+var _overridePlayer:bool = false;
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	if area.is_in_group("PlayerCat"):
+		var cat = area.get_parent();
+		if cat.CAT_TYPE == ColorType:
+			_overridePlayer = true;
+			pushed = true
+	pass # Replace with function body.
+
+
+func _on_area_2d_area_exited(area: Area2D) -> void:
+	if area.is_in_group("PlayerCat"):
+		var cat = area.get_parent();
+		if cat.CAT_TYPE == ColorType:
+			_overridePlayer = false;
+			pushed = false
+	pass # Replace with function body.

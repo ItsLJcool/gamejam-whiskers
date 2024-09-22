@@ -85,12 +85,6 @@ func move(direction, properties:Array = [
 		tile_map(Wall, properties)
 
 func _on_player_moved(dir):
-	for cat in Player.all:
-		if not is_instance_valid(cat):
-			continue
-		if cat.GRID_POSITION == GRID_POSITION and cat.CAT_TYPE == ColorType:
-			pass
-			#move(cat._last_direction)
 	for yarn in Yarn.all:
 		if not is_instance_valid(yarn):
 			continue

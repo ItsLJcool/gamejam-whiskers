@@ -12,7 +12,6 @@ func _process(delta: float) -> void:
 		switch_cat()
 
 func switch_cat():
-		print("Pressed Type")
 		match Player.CURRENT_CAT:
 			Player.Type.Yellow:
 				Player.CURRENT_CAT = Player.Type.Cyan

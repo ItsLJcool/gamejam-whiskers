@@ -1,7 +1,7 @@
-[gd_resource type="TileSet" load_steps=19 format=3 uid="uid://da3fpmg2684ih"]
+[gd_resource type="TileSet" load_steps=18 format=3 uid="uid://da3fpmg2684ih"]
 
 [ext_resource type="Shader" path="res://TileSets/Among Us Shader.gdshader" id="1_0dx3t"]
-[ext_resource type="Texture2D" uid="uid://bbjnei8ew8ue5" path="res://TileSets/Images/Sprite_Sheet_v3.png" id="2_eano3"]
+[ext_resource type="Texture2D" uid="uid://bhol73u0aqqk1" path="res://TileSets/Images/Tileset_5.png" id="2_j5qgp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b2bfd"]
 shader = ExtResource("1_0dx3t")
@@ -28,12 +28,6 @@ shader_parameter/g = Color(1, 1, 1, 1)
 shader_parameter/b = Color(1, 1, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4hdjk"]
-shader = ExtResource("1_0dx3t")
-shader_parameter/r = Color(0.87451, 0.592157, 0.14902, 1)
-shader_parameter/g = Color(1, 1, 1, 1)
-shader_parameter/b = Color(1, 1, 1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6557r"]
 shader = ExtResource("1_0dx3t")
 shader_parameter/r = Color(0.87451, 0.592157, 0.14902, 1)
 shader_parameter/g = Color(1, 1, 1, 1)
@@ -95,7 +89,7 @@ shader_parameter/b = Color(1, 1, 1, 1)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r2hn3"]
 resource_name = "Basic Tile Colorable"
-texture = ExtResource("2_eano3")
+texture = ExtResource("2_j5qgp")
 texture_region_size = Vector2i(128, 128)
 0:0/next_alternative_id = 4
 0:0/0 = 0
@@ -124,13 +118,6 @@ texture_region_size = Vector2i(128, 128)
 0:6/2/material = SubResource("ShaderMaterial_bcvv7")
 0:6/3 = 3
 0:6/3/material = SubResource("ShaderMaterial_0uu63")
-0:4/animation_frame_0/duration = 1.0
-0:4/animation_frame_1/duration = 1.0
-0:4/animation_frame_2/duration = 1.0
-0:4/animation_frame_3/duration = 1.0
-0:4/animation_frame_4/duration = 1.0
-0:4/0 = 0
-0:4/0/material = SubResource("ShaderMaterial_6557r")
 0:7/next_alternative_id = 6
 0:7/0 = 0
 0:7/0/material = SubResource("ShaderMaterial_7esf1")
@@ -146,6 +133,15 @@ texture_region_size = Vector2i(128, 128)
 0:7/4 = 4
 0:7/4/material = SubResource("ShaderMaterial_m4kpn")
 0:7/4/custom_data_0 = 4
+1:5/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+3:6/0 = 0
+3:5/0 = 0
+2:5/0 = 0
+1:7/0 = 0
 
 [resource]
 tile_size = Vector2i(128, 128)

@@ -101,6 +101,12 @@ func _process(delta: float) -> void:
 	position = lerp(position, target_position, delta * move_speed)
 
 func _on_player_moved(dir):
+	for cat in Player.all:
+		if not is_instance_valid(cat):
+			continue
+		if cat.GRID_POSITION == GRID_POSITION and cat.CAT_TYPE == ColorType:
+			print("MOVE PUSSY")
+			cat.move(dir_to_vector()*2)
 	for yarn in Yarn.all:
 		if not is_instance_valid(yarn):
 			continue

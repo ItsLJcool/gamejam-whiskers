@@ -1,0 +1,71 @@
+[gd_scene load_steps=6 format=3 uid="uid://dkft40fo61xm2"]
+
+[ext_resource type="Script" path="res://MainMenu.gd" id="1_3f3gr"]
+[ext_resource type="Texture2D" uid="uid://d3mvmor1am6xe" path="res://Assets/Title/Whisker_Wisdom.png" id="2_0rhmx"]
+
+[sub_resource type="Gradient" id="Gradient_l66hr"]
+colors = PackedColorArray(0, 0, 0, 1, 0.239865, 0.239865, 0.239865, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0m3c4"]
+gradient = SubResource("Gradient_l66hr")
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2dmpn"]
+size = Vector2(551, 546)
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_3f3gr")
+IntroScene = "res://Levels/Intro Levels/Starting.tscn"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -4
+offset_left = -21.0
+offset_top = -13.0
+offset_right = 1297.0
+offset_bottom = 743.0
+texture = SubResource("GradientTexture2D_0m3c4")
+
+[node name="Intro" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[node name="Wiskers bruh" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
+texture = ExtResource("2_0rhmx")
+
+[node name="WhiskerWisdom" type="Sprite2D" parent="Wiskers bruh"]
+modulate = Color(0, 0, 0, 1)
+z_index = -1
+position = Vector2(6, 6.5)
+texture = ExtResource("2_0rhmx")
+
+[node name="ColorRect" type="ColorRect" parent="Wiskers bruh"]
+z_index = -2
+offset_left = -133.0
+offset_top = -132.0
+offset_right = 139.0
+offset_bottom = 139.0
+mouse_filter = 2
+mouse_force_pass_scroll_events = false
+color = Color(0.57, 0.1767, 0.1767, 1)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(646, 367)
+shape = SubResource("RectangleShape2D_2dmpn")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -41.0
+offset_top = -30.0
+offset_right = 1328.0
+offset_bottom = 755.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

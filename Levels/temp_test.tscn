@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://crplkh8tm378t"]
+[gd_scene load_steps=15 format=4 uid="uid://crplkh8tm378t"]
 
 [ext_resource type="TileSet" uid="uid://da3fpmg2684ih" path="res://TileSets/SomeFinished Test.tres" id="1_dwqv2"]
 [ext_resource type="PackedScene" uid="uid://pv8m5sf23dfq" path="res://Assets/PlayerCat.tscn" id="2_cacoq"]
@@ -18,6 +18,13 @@ shader_parameter/g = Color(1, 1, 1, 1)
 shader_parameter/b = Color(1, 1, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v1e7i"]
+resource_local_to_scene = true
+shader = ExtResource("5_sar7g")
+shader_parameter/r = Color(0.875, 0.592, 0.149, 1)
+shader_parameter/g = Color(1, 1, 1, 1)
+shader_parameter/b = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ilbcp"]
 resource_local_to_scene = true
 shader = ExtResource("5_sar7g")
 shader_parameter/r = Color(0.875, 0.592, 0.149, 1)
@@ -67,6 +74,7 @@ NextLevel = "res://Levels/Template.tscn"
 position = Vector2(-256, 256)
 
 [node name="Door" parent="." node_paths=PackedStringArray("ButtonReference") instance=ExtResource("8_cfvpj")]
+material = SubResource("ShaderMaterial_ilbcp")
 position = Vector2(-384, -256)
 ButtonReference = NodePath("../Button")
 

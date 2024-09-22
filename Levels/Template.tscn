@@ -12,7 +12,6 @@ tile_map_data = PackedByteArray("AAAAAP//AAAAAAcAAQD/////AAAAAAcAAQD//wAAAAAAAAc
 tile_set = ExtResource("1_muoxe")
 
 [node name="TopLayer" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAD/////AAAAAAYAAQAAAP//AAAAAAYAAQA=")
 tile_set = ExtResource("1_muoxe")
 
 [node name="Camera" parent="." instance=ExtResource("3_1ea74")]
