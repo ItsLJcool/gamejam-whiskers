@@ -146,7 +146,8 @@ func get_direction_from_input() -> Vector2:
 	return Vector2.ZERO
 
 func move(direction: Vector2):
-	FLIPPED = true if direction.x < 0 else false
+	if direction.x != 0:
+		FLIPPED = true if direction.x < 0 else false
 	_last_direction = direction
 	prev_target_position = target_position
 	target_position += direction * tile_size
