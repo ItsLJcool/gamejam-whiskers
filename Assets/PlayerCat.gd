@@ -136,10 +136,8 @@ func _process(delta):
 func get_direction_from_input() -> Vector2:
 	if CAN_INPUT:
 		if Input.is_action_just_pressed("Player_Right"):
-			FLIPPED = false
 			return Vector2(1, 0)
 		elif Input.is_action_just_pressed("Player_Left"):
-			FLIPPED = true
 			return Vector2(-1, 0)
 		elif Input.is_action_just_pressed("Player_Down"):
 			return Vector2(0, 1)
@@ -148,6 +146,7 @@ func get_direction_from_input() -> Vector2:
 	return Vector2.ZERO
 
 func move(direction: Vector2):
+	FLIPPED = true if direction.x < 0 else false
 	_last_direction = direction
 	prev_target_position = target_position
 	target_position += direction * tile_size
